@@ -2,6 +2,7 @@ pipeline {
     agent any
 tools {
     maven 'localmaven'
+	java 'JDK1.8'
   }    
 stages{
         stage('Build'){
