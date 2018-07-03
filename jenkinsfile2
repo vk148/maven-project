@@ -17,17 +17,17 @@ stages{
         stage('Build'){
             steps {
 				echo 'Building'
+				mvn clean package
 			}
-            post {
-                success {
-                    echo 'Build completed'
-                   
-                }
+            success {
+                    echo 'Now Archiving...'
+                    archiveArtifacts artifacts: '**/target/*.war'
             }
         }
 		stage('Static Analysis'){
             steps {
 				echo 'Static Analysis'
+				mvn checkstyle:checkstyle
             }
             post {
                 success {
@@ -38,6 +38,7 @@ stages{
 		stage('Test'){
             steps {
 				echo 'Testing'
+				mvn test
             }
             post {
                 success {
@@ -48,6 +49,7 @@ stages{
 		stage('Deploy to staging'){
             steps {
 				echo 'Deploy to staging'
+				build job: deploy-to-staging
             }
             post {
                 success {
@@ -57,12 +59,18 @@ stages{
         }
 		stage('Deploy to production'){
             steps {
-				echo 'deploy to production'
+				timeout(times:5, unit:'DAYS'){
+					input message: 'Approve PRODUCTION deployment', submitter: Admin
+				}
+				build job: deploy-to-production
             }
             post {
                 success {
                     echo 'deploy to production completed'
                 }
+				failure {
+					echo ' deployment failed.'
+				}
             }
         }
     }
