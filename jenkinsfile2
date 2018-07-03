@@ -17,7 +17,7 @@ stages{
         stage('Build'){
             steps {
 				echo 'Building'
-				mvn clean package
+				bat 'mvn clean package'
 			}
 			post{
 				success {
@@ -29,7 +29,7 @@ stages{
 		stage('Static Analysis'){
             steps {
 				echo 'Static Analysis'
-				mvn checkstyle:checkstyle
+				bat 'mvn checkstyle:checkstyle'
             }
             post {
                 success {
@@ -40,7 +40,7 @@ stages{
 		stage('Test'){
             steps {
 				echo 'Testing'
-				mvn test
+				bat 'mvn test'
             }
             post {
                 success {
