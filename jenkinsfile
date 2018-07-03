@@ -6,7 +6,8 @@ tools {
 stages{
         stage('Build'){
             steps {
-			    bat 'C:\\Softwares\\apache-maven-3.3.9\\bin\\mvn.bat clean package'
+				bat 'mvn -version'
+			    bat 'mvn clean package'
             }
             post {
                 success {
