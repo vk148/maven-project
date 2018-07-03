@@ -61,7 +61,7 @@ stages{
         }
 		stage('Deploy to production'){
             steps {
-				timeout(times:5, unit:'DAYS'){
+				timeout(time:5, unit:'DAYS'){
 					input message: 'Approve PRODUCTION deployment', submitter: Admin
 				}
 				build job: deploy-to-production
