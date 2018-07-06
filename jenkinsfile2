@@ -37,6 +37,24 @@ stages{
                 }
             }
         }
+		stage('SonarQube Analysis'){
+			agent{
+				label 'master'
+			}
+            steps {
+				script{
+					scannerHome = tool 'SonarScanner3.2'
+				}
+				withSonarQubeEnv('SonarQube'){
+					bat "${scannerHome}/bin/sonar-scanner.bat"
+				}
+            }
+            post {
+                success {
+                    echo 'Static Analysis completed'
+                }
+            }
+        }
 		stage('Test'){
             steps {
 				echo 'Testing'
