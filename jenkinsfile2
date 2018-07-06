@@ -46,7 +46,7 @@ stages{
 					scannerHome = tool 'SonarQubeScanner3.2'
 				}
 				withSonarQubeEnv('SonarQube'){
-					bat "%scannerHome%/bin/sonar-scanner-debug.bat"
+					bat "${scannerHome}/bin/sonar-scanner-debug.bat"
 				}
             }
             post {
