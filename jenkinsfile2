@@ -43,7 +43,7 @@ stages{
 			}
             steps {
 				script{
-					scannerHome = tool 'SonarScanner3.2'
+					scannerHome = tool 'SonarQubeScanner3.2'
 				}
 				withSonarQubeEnv('SonarQube'){
 					bat "%scannerHome%/bin/sonar-scanner-debug.bat"
