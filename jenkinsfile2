@@ -1,5 +1,12 @@
 pipeline {
     agent any
+	parameters{
+		string(name:'tomcat_dev', defaultValue='localhost1, description:'This is dev server')
+		string(name:'tomcat_prod', defaultValue='localhost1, description:'This is dev server')		
+	}
+	triggers{
+		pollSCM('0,30 * * * *');
+	}
 tools {
     maven 'localmaven'
   }    
@@ -17,7 +24,7 @@ stages{
         stage('Build'){
             steps {
 				echo 'Building'
-				bat 'mvn clean package'
+				bat 'mvn clean compile package'
 			}
 			post{
 				success {
@@ -37,6 +44,17 @@ stages{
                 }
             }
         }
+		stage('Test'){
+            steps {
+				echo 'Testing'
+				bat 'mvn test'
+            }
+            post {
+                success {
+                    echo 'Test completed'
+                }
+            }
+        }
 		stage('SonarQube Analysis'){
 			agent{
 				label 'master'
@@ -52,17 +70,6 @@ stages{
             post {
                 success {
                     echo 'SonarQube Analysis completed'
-                }
-            }
-        }
-		stage('Test'){
-            steps {
-				echo 'Testing'
-				bat 'mvn test'
-            }
-            post {
-                success {
-                    echo 'Test completed'
                 }
             }
         }
