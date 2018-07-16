@@ -14,6 +14,12 @@
   <packaging>jar</packaging>
   <name>Server</name>
   <description>Logic.</description>
+  
+  <properties>
+		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
+	</properties>
 
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -44,5 +50,33 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+		<plugins>
+  			<!-- jacoco start -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals><goal>report</goal></goals>
+                    </execution>
+                </executions>
+				<configuration>
+					<excludes>
+					</excludes>
+					<destFile>${sonar.jacoco.reportPath}</destFile>
+				</configuration>
+			</plugin>
+</plugins>
+<build>
+			<!-- jacoco end -->
 
 </project>
