@@ -21,10 +21,7 @@
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
 	</properties>
 
-  <build>
-    <finalName>${project.artifactId}</finalName>
-  </build>
-
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
