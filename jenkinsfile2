@@ -66,6 +66,7 @@ stages{
 					scannerHome = tool 'SonarQubeScanner3.2'
 				}
 				withSonarQubeEnv('SonarQube'){
+					bat 'mvn clean compile'
 					bat "${scannerHome}/bin/sonar-scanner.bat"
 				}
             }
