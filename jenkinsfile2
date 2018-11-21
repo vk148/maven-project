@@ -91,9 +91,11 @@ stages{
 				timeout(time:5, unit:'DAYS'){
 					input message: '1st Approval for PRODUCTION deployment', submitter: 'admin'
 				}
+				/*
 				timeout(time:5, unit:'DAYS'){
 					input message: '2nd Approval for PRODUCTION deployment', submitter: 'vijay'
 				}
+				*/
 				build job: 'deploy-to-production'
             }
             post {
