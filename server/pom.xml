@@ -76,7 +76,7 @@
 				</configuration>
 			</plugin>
 </plugins>
-<build>
+</build>
 			<!-- jacoco end -->
 
 </project>
